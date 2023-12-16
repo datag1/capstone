@@ -1,0 +1,46 @@
+sql query for average delay 
+
+
+SELECT Reporting_Airline, AVG(ArrDelay) AS AverageArrivalDelay
+FROM `project-2-408123.88.airline delay`
+WHERE ArrDelay IS NOT NULL
+GROUP BY Reporting_Airline
+ORDER BY AverageArrivalDelay DESC
+
+
+
+sql query for Flight Status Analysis:
+
+
+SELECT *
+FROM `project-2-408123.88.airline delay`
+WHERE Origin = 'JFK' 
+  AND Dest = 'ATL'
+  AND Reporting_Airline IN ('AA', 'UA', 'DL')
+  AND Year = 2023
+  AND Month = 1  -- Example for January; adjust as needed
+  AND DayofMonth BETWEEN 1 AND 7  -- Example for the first week; adjust as needed
+  -- Time window filter, assuming CRSDepTime and CRSArrTime are in HHMM format
+  AND (
+      CAST(SUBSTR('0000' || CRSDepTime, -4, 2) AS INT64) BETWEEN 8 AND 14
+      OR CAST(SUBSTR('0000' || CRSArrTime, -4, 2) AS INT64) BETWEEN 8 AND 14
+  )
+
+sql query for new table for meodel creation:
+
+CREATE OR REPLACE TABLE `project-2-408123.88.model_data` AS
+SELECT 
+  FlightDate,
+  DayOfWeek,
+  Reporting_Airline,
+  Flight_Number_Reporting_Airline,
+  Origin,
+  Dest,
+  CRSDepTime,
+  CRSArrTime,
+  IFNULL(ArrDelay, 0) AS ArrDelay,
+  IF(ArrDelay > 30, 1, 0) AS DelayedOver30Minutes
+FROM 
+  `project-2-408123.88.airline delay`
+WHERE 
+  FlightDate BETWEEN '2022-01-01' AND '2022-12-31';
