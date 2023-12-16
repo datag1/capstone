@@ -1,0 +1,12 @@
+CREATE OR REPLACE MODEL `project-2-408123.88.delay_prediction_model`
+OPTIONS(model_type='logistic_reg', input_label_cols=['DelayedOver30Minutes']) AS
+SELECT
+  DayOfWeek,
+  Reporting_Airline,
+  Origin,
+  Dest,
+  CRSDepTime,
+  CRSArrTime,
+  DelayedOver30Minutes
+FROM
+  `project-2-408123.88.model_data`;
