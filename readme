@@ -1,0 +1,49 @@
+# Airline Delay Analysis SQL Scripts
+
+## Project Overview
+
+This repository contains a collection of SQL scripts used for analyzing airline operations, with a focus on predicting flight delays and associated costs. The scripts are designed for use with Google BigQuery and leverage data from various sources including the Bureau of Transportation Statistics and the Open Sky API.
+
+## Repository Structure
+
+- `flight_status_analysis.sql`: SQL script for analyzing flight statuses across different stages for specific airlines.
+- `delay_prediction_model.sql`: SQL script for creating and training a machine learning model in BigQuery to predict flight delays.
+- `cost_analysis.sql`: SQL script for calculating the average delay costs per airline on an hourly basis.
+- `README.md`: Overview and instructions for the SQL scripts.
+
+## Data Sources
+
+The SQL scripts are designed to work with data from the following sources:
+- **BTS Website**: Provides historical data on flight operations, including delays and cancellations.
+- **Open Sky API**: Offers real-time flight tracking data.
+- **Financial Data**: Includes information on the cost implications of flight delays.
+
+## Usage
+
+The SQL scripts can be run in the Google BigQuery environment. They are prepared to handle data querying, manipulation, and analysis tasks related to airline delay analysis.
+
+To run a script in BigQuery:
+1. Navigate to the BigQuery console.
+2. Create a new query.
+3. Copy and paste the SQL script content into the query editor.
+4. Execute the query.
+
+## Contributing
+
+To contribute to this repository:
+1. Fork the repository.
+2. Create a new branch for your feature or fix.
+3. Add or update SQL scripts.
+4. Submit a pull request for review.
+
+## Authors
+
+- druthi
+-mika 
+- Xiaoyu 
+-ashish 
+-praveen
+
+## Acknowledgements
+
+Special thanks to the contributors of data sources and tools used in this project.
