@@ -1,0 +1,30 @@
+const { BigQuery } = require('@google-cloud/bigquery');
+const axios = require('axios');
+
+exports.fetchOpenSkyData = async (req, res) => {
+    try {
+        const url = 'https://opensky-network.org/api/states/all'; // Replace with the actual Open Sky API endpoint
+        const response = await axios.get(url);
+        const data = response.data.states;
+
+        const rows = data.map(item => {
+            // Map fields from API response to your BigQuery table schema
+            // Example structure, modify according to your data schema
+            return {
+                flight_number: item[1],
+                timestamp: item[3],
+                // ... other fields
+            };
+        });
+
+        const bigquery = new BigQuery();
+        const datasetId = '88'; // Replace with your dataset ID
+        const tableId = 'opensky'; // Replace with your table ID
+        await bigquery.dataset(datasetId).table(tableId).insert(rows);
+
+        res.status(200).send('Data successfully inserted into BigQuery');
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('An error occurred');
+    }
+};
